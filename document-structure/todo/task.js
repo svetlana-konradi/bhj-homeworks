@@ -10,17 +10,24 @@ function addTask(e) {
   if (taskInput.value != "") {
     tasksList.insertAdjacentHTML("beforeEnd",
       `<div class="task">
-    <div class="task__title">
-    ${taskInput.value}
-    </div>
-    <a href="#" class="task__remove">&times;</a>
-  </div>`
+        <div class="task__title">
+        ${taskInput.value}
+        </div>
+      <a href="#" class="task__remove">&times;</a>
+      </div>`
     );
-    
-    tasksList.lastChild.addEventListener("click", function (event) {
-      this.closest(".task").remove();
-    });
+    taskInput.value = "";
   };
 }
 
 taskForm.addEventListener("submit", addTask);
+
+function closeTask() {
+  let target = event.target;
+  let currentTask = target.closest('.task');
+  if (target.classList.contains('task__remove')) { 
+      currentTask.remove();
+  }    
+}
+
+tasksList.addEventListener('click', closeTask);
